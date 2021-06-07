@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import cities from './by-cities.json';
+
+import Table from './Table';
+
+const normalized = cities[0].regions.reduce((result, current) => {
+  const row = current.cities.map((city) => {
+    return { name: city.name, region: current.name };
+  });
+
+  return [...result, ...row];
+}, []);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <Table data={normalized} />;
 }
 
 export default App;
